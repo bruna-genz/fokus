@@ -1,4 +1,9 @@
+import ptData from './locales/pt-br.json' assert { type: 'json' }
+import enData from './locales/en.json' assert { type: 'json' }
+
 const html = document.querySelector('html')
+const seletorDeIdioma = document.querySelector('#language-select')
+const elementosATraduzir = document.querySelectorAll('[lng-tag]')
 const focoBt = document.querySelector('.app__card-button--foco')
 const curtoBt = document.querySelector('.app__card-button--curto')
 const longoBt = document.querySelector('.app__card-button--longo')
@@ -18,9 +23,40 @@ const somPause = new Audio('/sons/pause.mp3')
 
 let tempoDecorridoEmSegundos = 1500
 let intervaloId = null
+let objTraducao = ptData
+
+function traduzir() {
+  elementosATraduzir.forEach(el => {
+    let key = el.getAttribute('lng-tag')
+    if (key) {
+      el.innerHTML = objTraducao[key]
+    }
+  })
+}
+
+function atualizarObjTraducao(idioma) {  
+  switch (idioma) {
+    case 'pt-br':
+      objTraducao = ptData
+      break;
+    case 'en-us':
+      objTraducao = enData
+      break;
+    default:
+      objTraducao = enData
+      break;
+  }
+
+  return objTraducao
+}
+
+seletorDeIdioma.addEventListener('change', (el) => {
+  let idioma = el.target.value
+  atualizarObjTraducao(idioma)
+  traduzir()
+})
 
 musica.loop = true
-
 musicaFocoInput.addEventListener('change', () => {
   if (musica.paused) {
     musica.play()
@@ -57,22 +93,13 @@ function alterarContexto(contexto) {
 
   switch (contexto) {
     case "foco":
-      titulo.innerHTML = `
-        Otimize sua produtividade,<br>
-        <strong class="app__title-strong">mergulhe no que importa.</strong>
-      `
+      titulo.innerHTML = objTraducao['banner-foco']
       break;
     case "descanso-curto":
-      titulo.innerHTML = `
-        Que tal dar uma respirada?<br>
-        <strong class="app__title-strong">Faça uma pausa curta!</strong>
-      `
+      titulo.innerHTML = objTraducao['banner-descanso-curto']
       break
     case "descanso-longo":
-      titulo.innerHTML = `
-      Hora de voltar à superfície.<br>
-        <strong class="app__title-strong">Faça uma pausa longa.</strong>
-      `
+      titulo.innerHTML = objTraducao['banner-descanso-longo']
       break
     default:
       break;
@@ -102,13 +129,13 @@ function iniciarOuPausar() {
 
   somInicio.play()
   intervaloId = setInterval(contagemRegressiva, 1000)
-  iniciarOuPausarBt.textContent = 'Pausar'
+  iniciarOuPausarBt.textContent = objTraducao['botao-pausar']
   iniciarOuPausarIcone.setAttribute('src', '/imagens/pause.png')
 }
 
 function zerar() {
   clearInterval(intervaloId)
-  iniciarOuPausarBt.textContent = 'Começar'
+  iniciarOuPausarBt.textContent = objTraducao['botao-comecar']
   iniciarOuPausarIcone.setAttribute('src', '/imagens/play_arrow.png')
   intervaloId = null
 }
@@ -119,4 +146,5 @@ function mostrarTempo() {
   tempoNaTela.innerHTML = `${tempoFormatado}`
 }
 
+traduzir()
 mostrarTempo()

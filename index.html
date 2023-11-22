@@ -15,7 +15,7 @@
         href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Prata&family=Unbounded:wght@200;300;400;500;600;700;800;900&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="./styles.css">
-    <script src="./script.js" defer></script>
+    <script src="./script.js" type="module" defer></script>
 </head>
 
 <body>
@@ -24,11 +24,16 @@
             <figure class="app__logo-figure">
                 <img class="app__logo-image" src="/imagens/logo.png" alt="">
             </figure>
+
+            <div class="app__language">
+              <select name="language" id="language-select" aria-label="language selector">
+                <option value="pt-br">Português</option>
+                <option value="en-us">English</option>
+              </select>
+            </div>
         </header>
         <section class="app__section-banner-container">
-            <h1 class="app__title">
-                Otimize sua produtividade,<br>
-                <strong class="app__title-strong">mergulhe no que importa.</strong>
+            <h1 class="app__title" lng-tag="banner-foco">
             </h1>
             <figure class="app__image-figure">
                 <img class="app__image" src="/imagens/foco.png" alt="">
@@ -38,13 +43,13 @@
             <div class="app__card">
                 <ul class="app__card-list">
                     <li class="app__card-list-item">
-                        <button data-contexto="foco" class="app__card-button app__card-button--foco active">Foco</button>
+                        <button data-contexto="foco" class="app__card-button app__card-button--foco active" lng-tag="timer-foco"></button>
                     </li>
                     <li class="app__card-list-item">
-                        <button data-contexto="short" class="app__card-button app__card-button--curto">Descanso curto</button>
+                        <button data-contexto="short" class="app__card-button app__card-button--curto" lng-tag="timer-descanso-curto"></button>
                     </li>
                     <li class="app__card-list-item">
-                        <button data-contexto="long" class="app__card-button app__card-button--longo">Descanso longo</button>
+                        <button data-contexto="long" class="app__card-button app__card-button--longo" lng-tag="timer-descanso-longo"></button>
                     </li>
                 </ul>
                 <div id="timer" class="app__card-timer"></div>
@@ -56,7 +61,7 @@
                         </label>
                     </li>
                     <li class="app__card-list-item">
-                        <label class="app__card-list-label" for="alternar-musica">
+                        <label class="app__card-list-label" for="alternar-musica" lng-tag="toggle-musica">
                             Música
                         </label>
                     </li>
@@ -64,16 +69,14 @@
                 <div class="app__card-primary-button-wrapper">
                     <button id="start-pause" class="app__card-primary-button">
                         <img class="app__card-primary-butto-icon" src="/imagens/play_arrow.png" alt="">
-                        <span>Começar</span>
+                        <span lng-tag="botao-comecar">Começar</span>
                     </button>
                 </div>
             </div>
         </section>
 
         <footer class="app__footer">
-            <p class="app__footer-text">
-                Projeto fictício e sem fins comerciais. Imagens geradas por IA no Adobe Firefly.Desenvolvido por Alura. 
-            </p>
+            <p class="app__footer-text" lng-tag="copyright"></p>
         </footer>
     </main>
 
